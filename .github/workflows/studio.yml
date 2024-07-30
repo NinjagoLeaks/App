@@ -31,8 +31,7 @@ jobs:
     runs-on: ubuntu-latest # Android SDK is built-in in this image
         
     steps:
-
-      Build-Pro:
+    
       - name: Set Current DATE
         run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
         
@@ -57,16 +56,12 @@ jobs:
         with:
           path: ${{ env.main_project_module }}${{ github.event.inputs.appDirectory }}/app/build/outputs/apk/
           name: apk-debug [${{ env.date_today }}]
-          retention-days: 1
+          Retention-days: 1
           
-          release-project:
-             name: release project
-             runs-on: ubuntu-latest
-             needs: Build-Pro
-             steps:
-              - name: Build Apk
-                uses: actions/download-artifact@v3
-                with:
-                 Name: static-site
-              - name: Test Artificat Download
-                run: ls -R
+      - name: Build Apk
+        uses: actions/download-artifact@v3
+        with:
+          name: Build
+        
+      - name: Test Artificat Download
+        run: ls -R
